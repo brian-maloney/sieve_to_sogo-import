@@ -172,6 +172,14 @@ sub convert($) {
             next;
         }
 
+        if($row =~ /\s*{\s*/) {
+            next;
+        }
+
+        if ($row =~ /^\/\*/){
+            next;
+        }
+
         # TRAITEMENT DES CONDITIONS
         if($row =~ /\s*if (allof|anyof) \((.*)\)/) {
             $rules = convertRules($2);
@@ -193,9 +201,14 @@ sub convert($) {
         } 
         if($row =~ /\s*if\s+([^\(]*")/) {
             $rules = convertRules($1);
-            $type = "unknow";
-            print("Type $1 unknow ! ");
-            exit;
+            $type = "all";
+            $string = $1;
+            $string =~ tr/"/'/;
+            $shortname .= "($string) ";
+            next;
+            # $type = "unknow";
+            # print("Type $1 unknow ! ");
+            # exit;
         } 
 
         # TRAITEMENT DES "redirect" (forward) doit etre avant "traitement des action" car priorité sur ^redirect
@@ -375,6 +388,7 @@ sub convertRules($) {
         }elsif($_ =~ /body :text :(matches|contains|is|regex) (.*)/) {
             $operator = $1;
             $value = $2;
+            $value =~ tr/"//d;
             if($rules eq "") {
                 $rules .= "{\"field\": \"body\", \"operator\": \"$operator\", \"value\": \"$value\"}";
             }else {
