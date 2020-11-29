@@ -346,6 +346,7 @@ sub convertRules($) {
                     $rules .= ",{\"field\": \"".$field."\", \"operator\": \"$operator\", \"value\": \"$value\"}";    
                 } 
             }else{
+                $field =~ tr/ //d;
                 if($rules eq "") {
                     $rules .= "{\"field\": \"header\", \"operator\": \"$operator\", \"custom_header\": \"".$field."\", \"value\": \"$value\"}";
                 }else {
@@ -365,6 +366,7 @@ sub convertRules($) {
                     $rules .= ",{\"field\": \"".$field."\", \"operator\": \"$operator\", \"value\": \"$value\"}";    
                 } 
             }else{
+                $field =~ tr/ //d;
                 if($rules eq "") {
                     $rules .= "{\"field\": \"header\", \"operator\": \"$operator\", \"custom_header\": \"".$field."\", \"value\": \"$value\"}";
                 }else {
