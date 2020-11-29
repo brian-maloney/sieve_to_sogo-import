@@ -11,7 +11,7 @@
 
 # On test si le dossier existe, sinon on quit le programme
 PLPATH=`pwd`
-SIEVEDIR="/Users/brmalon2/sieve"
+SIEVEDIR="/opt/oldsieve"
 if [ -d $SIEVEDIR ]; then
     cd $SIEVEDIR
 else
