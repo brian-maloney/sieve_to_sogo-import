@@ -50,10 +50,10 @@ if(-e $ARGV[0] && defined $ARGV[1]) {
         open(my $fro, '>', $filenameoutsieve) or die "Could not open file '$filenameoutsieve' $!";
         print $fro "{$sogoSieve}";
         close $fro;
-        print("sogo-tool user-preferences set defaults $user -p root.creds SOGoSieveFilters -f $filenameoutsieve");
+        print("sudo -u sogo sogo-tool user-preferences set defaults $user -p /etc/sogo/sieve.creds SOGoSieveFilters -f $filenameoutsieve");
         print("\n");
         if ($exec eq 1) {
-            system("sogo-tool user-preferences set defaults $user -p $dirname/root.creds SOGoSieveFilters -f $filenameoutsieve");
+            system("sudo -u sogo sogo-tool user-preferences set defaults $user -p /etc/sogo/sieve.creds SOGoSieveFilters -f $filenameoutsieve");
             if ($? == -1) {
                 print "failed to execute: $!\n";
             } else {
@@ -68,10 +68,10 @@ if(-e $ARGV[0] && defined $ARGV[1]) {
         open(my $fro2, '>', $filenameoutvac) or die "Could not open file '$filenameoutvac' $!";
         print $fro2 "$sogoSieveVacation";
         close $fro2;
-        print("sogo-tool user-preferences set defaults $user -p root.creds Vacation -f $filenameoutvac");
+        print("sudo -u sogo sogo-tool user-preferences set defaults $user -p /etc/sogo/sieve.creds Vacation -f $filenameoutvac");
         print("\n");
         if ($exec eq 1) { 
-            system("sogo-tool user-preferences set defaults $user -p $dirname/root.creds Vacation -f $filenameoutvac");
+            system("sudo -u sogo sogo-tool user-preferences set defaults $user -p /etc/sogo/sieve.creds Vacation -f $filenameoutvac");
             if ($? == -1) {
                 print "failed to execute: $!\n";
             } else {
@@ -86,10 +86,10 @@ if(-e $ARGV[0] && defined $ARGV[1]) {
         open(my $fro3, '>', $filenameoutfor) or die "Could not open file '$filenameoutfor' $!";
         print $fro3 "$sogoSieveForward";
         close $fro3;
-        print("sogo-tool user-preferences set defaults $user -p root.creds Forward -f $filenameoutfor");
+        print("sudo -u sogo sogo-tool user-preferences set defaults $user -p /etc/sogo/sieve.creds Forward -f $filenameoutfor");
         print("\n");
         if ($exec eq 1) { 
-            system("sogo-tool user-preferences set defaults $user -p $dirname/root.creds Forward -f $filenameoutfor");
+            system("sudo -u sogo sogo-tool user-preferences set defaults $user -p /etc/sogo/sieve.creds Forward -f $filenameoutfor");
             if ($? == -1) {
                 print "failed to execute: $!\n";
             } else {
@@ -106,11 +106,11 @@ if(-e $ARGV[0] && defined $ARGV[1]) {
     my $sogoSieve = convert($file);
 
     print("\nCommandes à executer:\n\n");
-    print("sogo-tool user-preferences set defaults user -p root.creds SOGoSieveFilters {$sogoSieve}");
+    print("sudo -u sogo sogo-tool user-preferences set defaults user -p /etc/sogo/sieve.creds SOGoSieveFilters {$sogoSieve}");
     print("\n\n");
-    print("sogo-tool user-preferences set defaults user -p root.creds Vacation {$sogoSieveVacation}");
+    print("sudo -u sogo sogo-tool user-preferences set defaults user -p /etc/sogo/sieve.creds Vacation {$sogoSieveVacation}");
     print("\n\n");
-    print("sogo-tool user-preferences set defaults user -p root.creds Forward {$sogoSieveForward}");
+    print("sudo -u sogo sogo-tool user-preferences set defaults user -p /etc/sogo/sieve.creds Forward {$sogoSieveForward}");
     print("\n\n");
 } else {
     print("############### sieve_to_sogo-import.pl ##################\n");
